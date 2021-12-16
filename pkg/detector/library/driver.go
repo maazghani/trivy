@@ -6,14 +6,12 @@ import (
 	ftypes "github.com/aquasecurity/fanal/types"
 	ecosystem "github.com/aquasecurity/trivy-db/pkg/vulnsrc/ghsa"
 	"github.com/aquasecurity/trivy-db/pkg/vulnsrc/vulnerability"
-	"github.com/aquasecurity/trivy/pkg/detector/library/bundler"
 	"github.com/aquasecurity/trivy/pkg/detector/library/cargo"
 	"github.com/aquasecurity/trivy/pkg/detector/library/comparer"
 	"github.com/aquasecurity/trivy/pkg/detector/library/composer"
 	"github.com/aquasecurity/trivy/pkg/detector/library/ghsa"
 	"github.com/aquasecurity/trivy/pkg/detector/library/maven"
 	"github.com/aquasecurity/trivy/pkg/detector/library/npm"
-	"github.com/aquasecurity/trivy/pkg/detector/library/python"
 	"github.com/aquasecurity/trivy/pkg/types"
 )
 
@@ -25,16 +23,12 @@ type advisory interface {
 func NewDriver(libType string) (Driver, error) {
 	var driver Driver
 	switch libType {
-	case ftypes.Bundler, ftypes.GemSpec:
-		driver = newRubyGemsDriver()
 	case ftypes.Cargo:
 		driver = newCargoDriver()
 	case ftypes.Composer:
 		driver = newComposerDriver()
 	case ftypes.Npm, ftypes.Yarn, ftypes.NodePkg, ftypes.JavaScript:
 		driver = newNpmDriver()
-	case ftypes.Pipenv, ftypes.Poetry, ftypes.Pip, ftypes.PythonPkg:
-		driver = newPipDriver()
 	case ftypes.NuGet:
 		driver = newNugetDriver()
 	case ftypes.Jar:
@@ -87,11 +81,6 @@ func (d *Driver) Type() string {
 	return d.ecosystem
 }
 
-func newRubyGemsDriver() Driver {
-	c := bundler.RubyGemsComparer{}
-	return Aggregate(vulnerability.RubyGems, NewAdvisory(vulnerability.RubyGems, c), bundler.NewAdvisory(), ghsa.NewAdvisory(ecosystem.Rubygems, c))
-}
-
 func newComposerDriver() Driver {
 	c := comparer.GenericComparer{}
 	return Aggregate(vulnerability.Composer, NewAdvisory(vulnerability.Composer, c), composer.NewAdvisory(), ghsa.NewAdvisory(ecosystem.Composer, c))
@@ -106,10 +95,6 @@ func newNpmDriver() Driver {
 	return Aggregate(vulnerability.Npm, NewAdvisory(vulnerability.Npm, c), npm.NewAdvisory(), ghsa.NewAdvisory(ecosystem.Npm, c))
 }
 
-func newPipDriver() Driver {
-	c := comparer.GenericComparer{}
-	return Aggregate(vulnerability.Pip, NewAdvisory(vulnerability.Pip, c), python.NewAdvisory(), ghsa.NewAdvisory(ecosystem.Pip, c))
-}
 
 func newNugetDriver() Driver {
 	c := comparer.GenericComparer{}

@@ -179,29 +179,6 @@ func TestClient_FillVulnerabilityInfo(t *testing.T) {
 			},
 		},
 		{
-			name:     "happy path, with only library vulnerability",
-			fixtures: []string{"testdata/fixtures/full.yaml"},
-			args: args{
-				vulns: []types.DetectedVulnerability{
-					{VulnerabilityID: "CVE-2019-0005"},
-				},
-				reportType: ftypes.Poetry,
-			},
-			expectedVulnerabilities: []types.DetectedVulnerability{
-				{
-					VulnerabilityID: "CVE-2019-0005",
-					Vulnerability: dbTypes.Vulnerability{
-						Title:       "COVID-19",
-						Description: "a nasty virus vulnerability for humans",
-						Severity:    dbTypes.SeverityCritical.String(),
-						References:  []string{"https://www.who.int/emergencies/diseases/novel-coronavirus-2019"},
-					},
-					SeveritySource: vulnerability.PythonSafetyDB,
-					PrimaryURL:     "https://avd.aquasec.com/nvd/cve-2019-0005",
-				},
-			},
-		},
-		{
 			name:     "happy path, with package-specific severity",
 			fixtures: []string{"testdata/fixtures/full.yaml"},
 			args: args{

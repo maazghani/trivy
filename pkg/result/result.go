@@ -36,7 +36,6 @@ var (
 		vulnerability.SuseCVRF:         {"http://lists.opensuse.org", "https://lists.opensuse.org"},
 		vulnerability.OracleOVAL:       {"http://linux.oracle.com/errata", "https://linux.oracle.com/errata"},
 		vulnerability.NodejsSecurityWg: {"https://www.npmjs.com", "https://hackerone.com"},
-		vulnerability.RubySec:          {"https://groups.google.com"},
 	}
 )
 
@@ -102,10 +101,6 @@ func (c Client) detectSource(reportType string) []string {
 		sources = []string{vulnerability.NodejsSecurityWg, vulnerability.GHSANpm, vulnerability.GLAD}
 	case "nuget":
 		sources = []string{vulnerability.GHSANuget, vulnerability.GLAD}
-	case "pipenv", "poetry":
-		sources = []string{vulnerability.PythonSafetyDB, vulnerability.GHSAPip, vulnerability.GLAD}
-	case "bundler":
-		sources = []string{vulnerability.RubySec, vulnerability.GHSARubygems, vulnerability.GLAD}
 	case "cargo":
 		sources = []string{vulnerability.RustSec}
 	case "composer":
