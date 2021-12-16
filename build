@@ -1,0 +1,3 @@
+#!/bin/bash
+go get -t ./...
+go build github.com/aquasecurity/trivy/cmd/trivy -o /usr/local/bin/trivy
