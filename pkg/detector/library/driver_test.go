@@ -80,7 +80,7 @@ func TestDriver_Detect(t *testing.T) {
 		{
 			name:     "no vulnerable versions in the advisory",
 			fixtures: []string{"testdata/fixtures/ruby.yaml"},
-			libType:  ftypes.Bundler,
+			libType:  ftypes.Composer,
 			args: args{
 				pkgName: "activesupport",
 				pkgVer:  "4.1.1",

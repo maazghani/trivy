@@ -77,15 +77,7 @@ func TestReportWriter_toSarifRuleName(t *testing.T) {
 			sarifRuleName:     "ProgrammingLanguageVulnerability",
 		},
 		{
-			vulnerabilityType: "pipenv",
-			sarifRuleName:     "ProgrammingLanguageVulnerability",
-		},
-		{
 			vulnerabilityType: "poetry",
-			sarifRuleName:     "ProgrammingLanguageVulnerability",
-		},
-		{
-			vulnerabilityType: "bundler",
 			sarifRuleName:     "ProgrammingLanguageVulnerability",
 		},
 		{
