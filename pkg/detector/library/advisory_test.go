@@ -10,7 +10,6 @@ import (
 	"github.com/aquasecurity/trivy-db/pkg/vulnsrc/vulnerability"
 	"github.com/aquasecurity/trivy/pkg/dbtest"
 	"github.com/aquasecurity/trivy/pkg/detector/library"
-	"github.com/aquasecurity/trivy/pkg/detector/library/bundler"
 	"github.com/aquasecurity/trivy/pkg/detector/library/comparer"
 	"github.com/aquasecurity/trivy/pkg/types"
 )
@@ -68,8 +67,8 @@ func TestAdvisory_DetectVulnerabilities(t *testing.T) {
 		{
 			name:      "no vulnerable versions in the advisory",
 			fixtures:  []string{"testdata/fixtures/ruby.yaml"},
-			ecosystem: vulnerability.RubyGems,
-			comparer:  bundler.RubyGemsComparer{},
+			ecosystem: vulnerability.Composer,
+			comparer:  comparer.GenericComparer{},
 			args: args{
 				pkgName: "activesupport",
 				pkgVer:  "4.1.1",

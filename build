@@ -1,3 +1,5 @@
 #!/bin/bash
-go get -t ./...
-go build github.com/aquasecurity/trivy/cmd/trivy -o /usr/local/bin/trivy
+docker build -t trivy:build .
+docker container create --name extract trivy:build
+docker cp extract:/go/bin/trivy /usr/local/bin/trivy
+chmod +x trivy
